@@ -34,6 +34,7 @@ final class AutoBrightnessCoordinator: NSObject {
   private var lastUSBSampleDate: Date?
   private var lastSampleDate: Date?
   private var activeTransport: TransportKind?
+  private var latestRawLux: Double?
   private var filteredAmbient: FilteredAmbient?
   private var lastApplyDate: Date?
   private var lastAppliedBrightness: [String: Float] = [:]
@@ -94,6 +95,7 @@ final class AutoBrightnessCoordinator: NSObject {
     usbTransport.stop()
     engine.reset()
     filteredAmbient = nil
+    latestRawLux = nil
     lastSampleDate = nil
     activeTransport = nil
     transitionLimiters.removeAll()
@@ -104,6 +106,7 @@ final class AutoBrightnessCoordinator: NSObject {
     if !sleeping {
       engine.reset()
       filteredAmbient = nil
+      latestRawLux = nil
       lastSampleDate = nil
     }
     updateMenuPresentation()
@@ -274,6 +277,7 @@ final class AutoBrightnessCoordinator: NSObject {
       updateMenuPresentation()
       return
     }
+    latestRawLux = sample.lux
     filteredAmbient = ambient
     applyCurrentAmbient(at: now)
     updateMenuPresentation()
@@ -287,6 +291,7 @@ final class AutoBrightnessCoordinator: NSObject {
       lastSampleDate = lastUSBSampleDate
       engine.reset()
       filteredAmbient = nil
+      latestRawLux = nil
     }
     applyCurrentAmbient(at: now)
     updateMenuPresentation()
@@ -376,14 +381,14 @@ final class AutoBrightnessCoordinator: NSObject {
     }
     guard let sampleDate = lastSampleDate,
           date.timeIntervalSince(sampleDate) <= staleInterval,
-          let ambient = filteredAmbient,
+          let latestRawLux,
           let activeTransport
     else {
       return "Sensor: \(searchStateDescription())"
     }
-    let lux = ambient.lux < 10
-      ? String(format: "%.1f", ambient.lux)
-      : String(format: "%.0f", ambient.lux)
+    let lux = latestRawLux < 10
+      ? String(format: "%.1f", latestRawLux)
+      : String(format: "%.0f", latestRawLux)
     let bias = Int((currentSolarBias(at: date) * 100).rounded())
     let solar = bias == 0 ? "daylight" : "solar \(bias)%"
     return "Sensor: \(activeTransport.rawValue) · \(lux) lx · \(solar)"
