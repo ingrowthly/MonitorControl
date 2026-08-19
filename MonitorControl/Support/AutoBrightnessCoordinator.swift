@@ -25,8 +25,8 @@ final class AutoBrightnessCoordinator: NSObject {
   private let location = SolarLocation.bundledCities[0]
   private let staleInterval: TimeInterval = 3
   private let manualHoldInterval: TimeInterval = 10
-  private let minimumApplyInterval: TimeInterval = 0.5
-  private let minimumBrightnessChange: Float = 0.02
+  private let minimumApplyInterval: TimeInterval = 1
+  private let minimumBrightnessChange: Float = 0.005
 
   private var bluetoothState: SensorTransportState = .stopped
   private var usbState: SensorTransportState = .stopped
@@ -37,6 +37,7 @@ final class AutoBrightnessCoordinator: NSObject {
   private var filteredAmbient: FilteredAmbient?
   private var lastApplyDate: Date?
   private var lastAppliedBrightness: [String: Float] = [:]
+  private var transitionLimiters: [String: BrightnessTransitionLimiter] = [:]
   private var manualHoldUntil: [String: Date] = [:]
   private var profiles: [String: BrightnessProfile] = [:]
   private var timer: Timer?
@@ -95,6 +96,7 @@ final class AutoBrightnessCoordinator: NSObject {
     filteredAmbient = nil
     lastSampleDate = nil
     activeTransport = nil
+    transitionLimiters.removeAll()
   }
 
   func setSleeping(_ sleeping: Bool) {
@@ -115,6 +117,7 @@ final class AutoBrightnessCoordinator: NSObject {
   func displaysDidReconfigure() {
     isReconfiguring = false
     lastAppliedBrightness.removeAll()
+    transitionLimiters.removeAll()
     applyCurrentAmbient(force: true)
     updateMenuPresentation()
   }
@@ -125,6 +128,9 @@ final class AutoBrightnessCoordinator: NSObject {
     let key = stableDisplayID(display)
     manualHoldUntil[key] = now.addingTimeInterval(manualHoldInterval)
     lastAppliedBrightness[key] = value
+    var limiter = transitionLimiters[key] ?? BrightnessTransitionLimiter()
+    limiter.reset(to: Double(value), at: now)
+    transitionLimiters[key] = limiter
 
     guard let ambient = filteredAmbient,
           let sampleDate = lastSampleDate,
@@ -312,7 +318,10 @@ final class AutoBrightnessCoordinator: NSObject {
         profile: profile,
         solarBias: solarBias
       ) else { continue }
-      let value = Float(target)
+      var limiter = transitionLimiters[key] ?? BrightnessTransitionLimiter()
+      let limitedTarget = limiter.step(toward: target, at: now, immediate: force)
+      transitionLimiters[key] = limiter
+      let value = Float(limitedTarget)
       if !force, let previous = lastAppliedBrightness[key],
          abs(previous - value) < minimumBrightnessChange
       {
