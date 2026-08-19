@@ -33,7 +33,6 @@
                                     <gridRow bottomPadding="-10" id="pdf-bY-bem"/>
                                     <gridRow bottomPadding="-10" id="ALY-LA-2OR"/>
                                     <gridRow bottomPadding="-6" id="XRs-29-fP2"/>
-                                    <gridRow bottomPadding="-6" id="cw7-5z-NlQ"/>
                                     <gridRow id="1zL-Fy-6VV"/>
                                 </rows>
                                 <columns>
@@ -257,19 +256,6 @@
                                             </connections>
                                         </button>
                                     </gridCell>
-                                    <gridCell row="cw7-5z-NlQ" column="eHC-Ur-UsS" id="URY-80-0aw"/>
-                                    <gridCell row="cw7-5z-NlQ" column="64O-72-10l" id="GTd-f0-dsS">
-                                        <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="79h-9d-Iwx">
-                                            <rect key="frame" x="218" y="33" width="472" height="18"/>
-                                            <buttonCell key="cell" type="check" title="Automatically check for updates" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Faf-9L-TXx">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="automaticUpdateCheck:" target="BGD-tY-Myx" id="tq9-KW-isC"/>
-                                            </connections>
-                                        </button>
-                                    </gridCell>
                                     <gridCell row="1zL-Fy-6VV" column="eHC-Ur-UsS" id="ZXq-MT-yta"/>
                                     <gridCell row="1zL-Fy-6VV" column="64O-72-10l" xPlacement="leading" id="LYo-2f-Lll">
                                         <button key="contentView" verticalHuggingPriority="750" placeholderIntrinsicWidth="200" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="s9H-FF-JCT">
@@ -296,7 +282,6 @@
                     </view>
                     <connections>
                         <outlet property="allowZeroSwBrightness" destination="fNb-xU-imu" id="cDJ-Lc-WZd"/>
-                        <outlet property="automaticUpdateCheck" destination="79h-9d-Iwx" id="qjo-gL-f1w"/>
                         <outlet property="combinedBrightness" destination="HqE-17-9wg" id="jyF-r9-cDY"/>
                         <outlet property="enableBrightnessSync" destination="DW6-ez-A8y" id="2ay-8g-h1v"/>
                         <outlet property="enableSmooth" destination="7cl-Ma-fc4" id="jJE-mj-5v2"/>
@@ -2008,17 +1993,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSApplicationIcon" id="2rQ-WJ-rCY"/>
                             </imageView>
-                            <button verticalHuggingPriority="750" id="PEt-Ef-kWK">
-                                <rect key="frame" x="476" y="202" width="200" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Check for updates" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jVH-oc-rUi">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="checkForUpdatesWithSender:" target="7uI-eE-yxm" id="Z7G-jz-0xK"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" id="rqH-BW-IT6">
                                 <rect key="frame" x="249" y="165" width="420" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -2045,7 +2019,7 @@
                             <button verticalHuggingPriority="750" id="W2f-KE-6PO">
                                 <rect key="frame" x="249" y="138" width="420" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="https://monitorcontrol.app" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="42n-Zy-AqF">
+                                <buttonCell key="cell" type="bevel" title="https://github.com/ingrowthly/MonitorControl" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="42n-Zy-AqF">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <attributedString key="userComments">

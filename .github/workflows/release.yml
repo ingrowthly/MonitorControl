@@ -1,0 +1,104 @@
+name: Release custom MonitorControl build
+
+on:
+  push:
+    tags:
+      - "monitorcontrol-custom-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-26
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate release tag and branch
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          project_version="$(xcodebuild -project MonitorControl.xcodeproj -scheme MonitorControl -configuration Release -showBuildSettings | awk '/MARKETING_VERSION =/ { print $3; exit }')"
+          expected_tag="monitorcontrol-custom-v${project_version}"
+          if [[ "${RELEASE_TAG}" != "${expected_tag}" ]]; then
+            echo "Tag ${RELEASE_TAG} does not match ${expected_tag}." >&2
+            exit 1
+          fi
+          git fetch origin release/auto-brightness:refs/remotes/origin/release/auto-brightness
+          git merge-base --is-ancestor HEAD origin/release/auto-brightness
+
+      - name: Build ad-hoc signed release
+        run: |
+          set -euo pipefail
+
+          output_dir="${PWD}/dist"
+          derived_data_dir="${output_dir}/DerivedData"
+          app_path="${output_dir}/MonitorControl.app"
+          archive_path="${output_dir}/MonitorControl.zip"
+          disk_image_path="${output_dir}/MonitorControl.dmg"
+
+          mkdir -p "${output_dir}"
+          rm -rf "${derived_data_dir}" "${app_path}" "${archive_path}" "${disk_image_path}"
+
+          xcodebuild \
+            -project MonitorControl.xcodeproj \
+            -scheme MonitorControl \
+            -configuration Release \
+            -derivedDataPath "${derived_data_dir}" \
+            -clonedSourcePackagesDirPath "${derived_data_dir}/SourcePackages" \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+          built_app="${derived_data_dir}/Build/Products/Release/MonitorControl.app"
+          test -d "${built_app}"
+          /usr/bin/ditto "${built_app}" "${app_path}"
+
+          /usr/bin/codesign --force --deep --sign - "${app_path}"
+          helper_app="${app_path}/Contents/Library/LoginItems/MonitorControlHelper.app"
+          if [[ -d "${helper_app}" ]]; then
+            /usr/bin/codesign --force --sign - \
+              --entitlements MonitorControlHelper/MonitorControlHelper.entitlements \
+              "${helper_app}"
+          fi
+          /usr/bin/codesign --force --sign - \
+            --entitlements MonitorControl/MonitorControl.entitlements \
+            "${app_path}"
+
+          /usr/bin/codesign --verify --deep --strict --verbose=2 "${app_path}"
+          /usr/bin/ditto -c -k --sequesterRsrc --keepParent "${app_path}" "${archive_path}"
+          /usr/bin/hdiutil create \
+            -volname MonitorControl \
+            -srcfolder "${app_path}" \
+            -ov \
+            -format UDZO \
+            "${disk_image_path}"
+
+      - name: Verify release artifacts
+        run: |
+          codesign --verify --deep --strict --verbose=2 dist/MonitorControl.app
+          codesign -dv --verbose=2 dist/MonitorControl.app 2>&1 | grep -q "Signature=adhoc"
+          hdiutil verify dist/MonitorControl.dmg
+          unzip -tq dist/MonitorControl.zip
+          shasum -a 256 dist/MonitorControl.dmg dist/MonitorControl.zip
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          version="${RELEASE_TAG#monitorcontrol-custom-v}"
+          if gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
+            gh release upload "${RELEASE_TAG}" dist/MonitorControl.dmg dist/MonitorControl.zip --clobber
+          else
+            gh release create "${RELEASE_TAG}" \
+              dist/MonitorControl.dmg \
+              dist/MonitorControl.zip \
+              --verify-tag \
+              --generate-notes \
+              --notes $'### Installation notice\n\nThis custom build is ad-hoc signed and is not notarized by Apple. If macOS blocks the first launch, open **System Settings > Privacy & Security** and choose **Open Anyway**.' \
+              --title "MonitorControl Custom ${version}"
+          fi

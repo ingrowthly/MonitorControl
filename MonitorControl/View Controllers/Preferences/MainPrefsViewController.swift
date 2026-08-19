@@ -18,7 +18,6 @@ class MainPrefsViewController: NSViewController, SettingsPane {
   }
 
   @IBOutlet var startAtLogin: NSButton!
-  @IBOutlet var automaticUpdateCheck: NSButton!
   @IBOutlet var allowZeroSwBrightness: NSButton!
   @IBOutlet var combinedBrightness: NSButton!
   @IBOutlet var enableSmooth: NSButton!
@@ -55,7 +54,6 @@ class MainPrefsViewController: NSViewController, SettingsPane {
     // This is marked as deprectated but according to the function header it still does not have a replacement as of macOS 12 Monterey and is valid to use.
     let startAtLogin = (SMCopyAllJobDictionaries(kSMDomainUserLaunchd).takeRetainedValue() as? [[String: AnyObject]])?.first { $0["Label"] as? String == "\(Bundle.main.bundleIdentifier!)Helper" }?["OnDemand"] as? Bool ?? false
     self.startAtLogin.state = startAtLogin ? .on : .off
-    self.automaticUpdateCheck.state = prefs.bool(forKey: PrefKey.SUEnableAutomaticChecks.rawValue) ? .on : .off
     self.combinedBrightness.state = prefs.bool(forKey: PrefKey.disableCombinedBrightness.rawValue) ? .off : .on
     self.allowZeroSwBrightness.state = prefs.bool(forKey: PrefKey.allowZeroSwBrightness.rawValue) ? .on : .off
     self.enableSmooth.state = prefs.bool(forKey: PrefKey.disableSmoothBrightness.rawValue) ? .off : .on
@@ -75,16 +73,6 @@ class MainPrefsViewController: NSViewController, SettingsPane {
       app.setStartAtLogin(enabled: true)
     case .off:
       app.setStartAtLogin(enabled: false)
-    default: break
-    }
-  }
-
-  @IBAction func automaticUpdateCheck(_ sender: NSButton) {
-    switch sender.state {
-    case .on:
-      prefs.set(true, forKey: PrefKey.SUEnableAutomaticChecks.rawValue)
-    case .off:
-      prefs.set(false, forKey: PrefKey.SUEnableAutomaticChecks.rawValue)
     default: break
     }
   }

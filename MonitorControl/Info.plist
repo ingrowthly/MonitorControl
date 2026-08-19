@@ -32,12 +32,6 @@
 	<string>MIT Licensed. 2017.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUEnableJavaScript</key>
-	<true/>
-	<key>SUFeedURL</key>
-	<string>https://monitorcontrol.app/appcast2.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>ITSTMp8AypsLawojJ+UR3tm2mN18AFoNMvXf1G3t62s=</string>
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 </dict>

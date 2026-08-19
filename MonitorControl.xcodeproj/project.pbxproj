@@ -36,8 +36,6 @@
 		AA473EB126DFF8DE0063A181 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA473EB026DFF8DE0063A181 /* Command.swift */; };
 		AA5314C426EBF5170041D178 /* PrefKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5314C326EBF5170041D178 /* PrefKey.swift */; };
 		AA665A5D26C5892800FEF2C1 /* AboutPrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA665A5C26C5892800FEF2C1 /* AboutPrefsViewController.swift */; };
-		AA70817C27046B9800CC5625 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = AA70817B27046B9800CC5625 /* Sparkle */; };
-		AA78BDBD2709FE7B00CA8DF7 /* UpdaterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA78BDBC2709FE7B00CA8DF7 /* UpdaterDelegate.swift */; };
 		AA99521726FE25AB00612E07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA99521626FE25AB00612E07 /* AppDelegate.swift */; };
 		AA99521926FE49A300612E07 /* MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA99521826FE49A300612E07 /* MenuHandler.swift */; };
 		AA9AE86F26B5BF3D00B6CA65 /* OSD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA9AE86E26B5BF3D00B6CA65 /* OSD.framework */; };
@@ -122,7 +120,6 @@
 		AA473EB026DFF8DE0063A181 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		AA5314C326EBF5170041D178 /* PrefKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefKey.swift; sourceTree = "<group>"; };
 		AA665A5C26C5892800FEF2C1 /* AboutPrefsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPrefsViewController.swift; sourceTree = "<group>"; };
-		AA78BDBC2709FE7B00CA8DF7 /* UpdaterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterDelegate.swift; sourceTree = "<group>"; };
 		AA90101E27C56A0E00CC1DF7 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main.strings; sourceTree = "<group>"; };
 		AA90101F27C56A0E00CC1DF7 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InternetAccessPolicy.strings; sourceTree = "<group>"; };
 		AA90102027C56A0E00CC1DF7 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -193,7 +190,6 @@
 			files = (
 				AB0000040000000000000001 /* AutoBrightnessCore in Frameworks */,
 				AA9AE87126B5BFB700B6CA65 /* CoreDisplay.framework in Frameworks */,
-				AA70817C27046B9800CC5625 /* Sparkle in Frameworks */,
 				AA44E703270377C200E06865 /* KeyboardShortcuts in Frameworks */,
 				6CD35F53264FFFC6001F1344 /* SimplyCoreAudio in Frameworks */,
 				6CD35F5626500008001F1344 /* MediaKeyTap in Frameworks */,
@@ -313,7 +309,6 @@
 				AB0000010000000000000001 /* AutoBrightnessCoordinator.swift */,
 				F01B0685228221B6008E64DB /* Bridging-Header.h */,
 				AA99521626FE25AB00612E07 /* AppDelegate.swift */,
-				AA78BDBC2709FE7B00CA8DF7 /* UpdaterDelegate.swift */,
 				AA99521826FE49A300612E07 /* MenuHandler.swift */,
 				F01B068F228221B7008E64DB /* SliderHandler.swift */,
 				6C85EFD922C941B000227EA1 /* DisplayManager.swift */,
@@ -401,7 +396,6 @@
 				6CD35F52264FFFC6001F1344 /* SimplyCoreAudio */,
 				6CD35F5526500008001F1344 /* MediaKeyTap */,
 				AA44E702270377C200E06865 /* KeyboardShortcuts */,
-				AA70817B27046B9800CC5625 /* Sparkle */,
 				AAD7DD332CAFF3D90062822F /* Settings */,
 			);
 			productName = MonitorControl.OSX;
@@ -483,7 +477,6 @@
 				6CD35F5426500008001F1344 /* XCRemoteSwiftPackageReference "MediaKeyTap" */,
 				6CD35F5A2650003F001F1344 /* XCRemoteSwiftPackageReference "Settings" */,
 				AA44E701270377C200E06865 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
-				AA70817A27046B9800CC5625 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = 56754EAC1D9A4016007BCDC5 /* Products */;
 			projectDirPath = "";
@@ -640,7 +633,6 @@
 				6CBFE27A23DB266000D1BC41 /* Display.swift in Sources */,
 				AA44E70727038F7F00E06865 /* KeyboardShortcutsManager.swift in Sources */,
 				F03A8DF21FFBAA6F0034DC27 /* OtherDisplay.swift in Sources */,
-				AA78BDBD2709FE7B00CA8DF7 /* UpdaterDelegate.swift in Sources */,
 				AA44E7052703790100E06865 /* KeyboardShortcuts+Extension.swift in Sources */,
 				F0A489C4279C71B200BEDFD6 /* OnboardingViewController.swift in Sources */,
 				AA16139B26BE772E00DCF027 /* Arm64DDC.swift in Sources */,
@@ -890,7 +882,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 4.3.4;
-				PRODUCT_BUNDLE_IDENTIFIER = app.monitorcontrol.MonitorControl;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingrowthly.MonitorControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MonitorControl/Support/Bridging-Header.h";
@@ -927,7 +919,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 4.3.4;
-				PRODUCT_BUNDLE_IDENTIFIER = app.monitorcontrol.MonitorControl;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingrowthly.MonitorControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MonitorControl/Support/Bridging-Header.h";
@@ -964,7 +956,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 4.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.monitorcontrol.MonitorControlHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingrowthly.MonitorControlHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.5;
@@ -995,7 +987,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 4.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.monitorcontrol.MonitorControlHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ingrowthly.MonitorControlHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.5;
@@ -1074,14 +1066,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		AA70817A27046B9800CC5625 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sparkle-project/Sparkle";
-			requirement = {
-				branch = 2.x;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1104,11 +1088,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA44E701270377C200E06865 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
-		};
-		AA70817B27046B9800CC5625 /* Sparkle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA70817A27046B9800CC5625 /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
 		};
 		AAD7DD332CAFF3D90062822F /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;

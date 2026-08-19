@@ -25,10 +25,6 @@ class AboutPrefsViewController: NSViewController, SettingsPane {
     self.setCopyrightInfo()
   }
 
-  @IBAction func checkForUpdates(sender: NSButton) {
-    app.updaterController.checkForUpdates(sender)
-  }
-
   @IBAction func openDonate(_: NSButton) {
     if let url = URL(string: "https://opencollective.com/monitorcontrol/donate") {
       NSWorkspace.shared.open(url)
@@ -36,13 +32,13 @@ class AboutPrefsViewController: NSViewController, SettingsPane {
   }
 
   @IBAction func openWebPage(_: NSButton) {
-    if let url = URL(string: "https://monitorcontrol.app") {
+    if let url = URL(string: "https://github.com/ingrowthly/MonitorControl") {
       NSWorkspace.shared.open(url)
     }
   }
 
   @IBAction func openContributorsPage(_: NSButton) {
-    if let url = URL(string: "https://github.com/MonitorControl/MonitorControl/graphs/contributors") {
+    if let url = URL(string: "https://github.com/ingrowthly/MonitorControl/graphs/contributors") {
       NSWorkspace.shared.open(url)
     }
   }

@@ -37,15 +37,6 @@
       }
     },
     {
-      "identity" : "sparkle",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sparkle-project/Sparkle",
-      "state" : {
-        "branch" : "2.x",
-        "revision" : "9042c8dbd9c6f6a1bebc2e4c4b878eac6984ddbd"
-      }
-    },
-    {
       "identity" : "swift-atomics",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-atomics.git",

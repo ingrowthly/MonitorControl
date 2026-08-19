@@ -8,7 +8,6 @@ import os.log
 import ServiceManagement
 import Settings
 import SimplyCoreAudio
-import Sparkle
 
 class AppDelegate: NSObject, NSApplicationDelegate {
   let statusItem: NSStatusItem = {
@@ -28,7 +27,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var jobRunning = false
   var startupActionWriteCounter: Int = 0
   var audioPlayer: AVAudioPlayer?
-  let updaterController = SPUStandardUpdaterController(startingUpdater: false, updaterDelegate: UpdaterDelegate(), userDriverDelegate: nil)
   let autoBrightnessCoordinator = AutoBrightnessCoordinator()
 
   var settingsPaneStyle: Settings.Style {
@@ -66,7 +64,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     CGDisplayRegisterReconfigurationCallback({ _, _, _ in app.displayReconfigured() }, nil)
     self.configure(firstrun: true)
     DisplayManager.shared.createGammaActivityEnforcer()
-    self.updaterController.startUpdater()
     self.autoBrightnessCoordinator.start()
   }
 
@@ -114,7 +111,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     if !prefs.bool(forKey: PrefKey.appAlreadyLaunched.rawValue) {
       // Only settings that are not false, 0 or "" by default are set here. Assumes pre-wiped database.
       prefs.set(true, forKey: PrefKey.appAlreadyLaunched.rawValue)
-      prefs.set(true, forKey: PrefKey.SUEnableAutomaticChecks.rawValue)
     }
   }
 
