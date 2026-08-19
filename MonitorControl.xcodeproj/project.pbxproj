@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB0000020000000000000001 /* AutoBrightnessCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000010000000000000001 /* AutoBrightnessCoordinator.swift */; };
+		AB0000040000000000000001 /* AutoBrightnessCore in Frameworks */ = {isa = PBXBuildFile; productRef = AB0000030000000000000001 /* AutoBrightnessCore */; };
 		28D1DDF2227FBE71004CB494 /* NSScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D1DDF1227FBE71004CB494 /* NSScreen+Extension.swift */; };
 		28D1DDF3227FC8C6004CB494 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56754EB01D9A4016007BCDC5 /* Assets.xcassets */; };
 		56754EAF1D9A4016007BCDC5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56754EAE1D9A4016007BCDC5 /* main.swift */; };
@@ -75,6 +77,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AB0000010000000000000001 /* AutoBrightnessCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoBrightnessCoordinator.swift; sourceTree = "<group>"; };
 		01D6471D2AF916A800321FFB /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Main.strings; sourceTree = "<group>"; };
 		01D6471E2AF916A800321FFB /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InternetAccessPolicy.strings; sourceTree = "<group>"; };
 		01D6471F2AF916A800321FFB /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -188,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB0000040000000000000001 /* AutoBrightnessCore in Frameworks */,
 				AA9AE87126B5BFB700B6CA65 /* CoreDisplay.framework in Frameworks */,
 				AA70817C27046B9800CC5625 /* Sparkle in Frameworks */,
 				AA44E703270377C200E06865 /* KeyboardShortcuts in Frameworks */,
@@ -306,6 +310,7 @@
 		F01B067F228221B6008E64DB /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				AB0000010000000000000001 /* AutoBrightnessCoordinator.swift */,
 				F01B0685228221B6008E64DB /* Bridging-Header.h */,
 				AA99521626FE25AB00612E07 /* AppDelegate.swift */,
 				AA78BDBC2709FE7B00CA8DF7 /* UpdaterDelegate.swift */,
@@ -392,6 +397,7 @@
 			);
 			name = MonitorControl;
 			packageProductDependencies = (
+				AB0000030000000000000001 /* AutoBrightnessCore */,
 				6CD35F52264FFFC6001F1344 /* SimplyCoreAudio */,
 				6CD35F5526500008001F1344 /* MediaKeyTap */,
 				AA44E702270377C200E06865 /* KeyboardShortcuts */,
@@ -472,6 +478,7 @@
 			);
 			mainGroup = 56754EA21D9A4016007BCDC5;
 			packageReferences = (
+				AB0000050000000000000001 /* XCLocalSwiftPackageReference "AutoBrightnessCore" */,
 				6CD35F51264FFFC6001F1344 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */,
 				6CD35F5426500008001F1344 /* XCRemoteSwiftPackageReference "MediaKeyTap" */,
 				6CD35F5A2650003F001F1344 /* XCRemoteSwiftPackageReference "Settings" */,
@@ -618,6 +625,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB0000020000000000000001 /* AutoBrightnessCoordinator.swift in Sources */,
 				AA5314C426EBF5170041D178 /* PrefKey.swift in Sources */,
 				56754EAF1D9A4016007BCDC5 /* main.swift in Sources */,
 				AA062E8A26C9A039007E628C /* DisplaysPrefsViewController.swift in Sources */,
@@ -1026,6 +1034,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		AB0000050000000000000001 /* XCLocalSwiftPackageReference "AutoBrightnessCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = AutoBrightnessCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		6CD35F51264FFFC6001F1344 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -1070,6 +1085,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AB0000030000000000000001 /* AutoBrightnessCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB0000050000000000000001 /* XCLocalSwiftPackageReference "AutoBrightnessCore" */;
+			productName = AutoBrightnessCore;
+		};
 		6CD35F52264FFFC6001F1344 /* SimplyCoreAudio */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6CD35F51264FFFC6001F1344 /* XCRemoteSwiftPackageReference "SimplyCoreAudio" */;

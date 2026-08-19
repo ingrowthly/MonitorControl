@@ -324,6 +324,7 @@ class OtherDisplay: Display {
       slider.setValue(osdValue, displayID: self.identifier)
       self.brightnessSyncSourceValue = osdValue
     }
+    app.autoBrightnessCoordinator.manualBrightnessChanged(display: self, value: osdValue)
   }
 
   override func setBrightness(_ to: Float = -1, slow: Bool = false) -> Bool {

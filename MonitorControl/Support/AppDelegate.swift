@@ -29,6 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var startupActionWriteCounter: Int = 0
   var audioPlayer: AVAudioPlayer?
   let updaterController = SPUStandardUpdaterController(startingUpdater: false, updaterDelegate: UpdaterDelegate(), userDriverDelegate: nil)
+  let autoBrightnessCoordinator = AutoBrightnessCoordinator()
 
   var settingsPaneStyle: Settings.Style {
     if !DEBUG_MACOS10, #available(macOS 11.0, *) {
@@ -66,6 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     self.configure(firstrun: true)
     DisplayManager.shared.createGammaActivityEnforcer()
     self.updaterController.startUpdater()
+    self.autoBrightnessCoordinator.start()
   }
 
   @objc func quitClicked(_: AnyObject) {
@@ -88,6 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationWillTerminate(_: Notification) {
     os_log("Goodbye!", type: .info)
+    self.autoBrightnessCoordinator.stop()
     DisplayManager.shared.resetSwBrightnessForAllDisplays(noPrefSave: true)
     self.updateStatusItemVisibility(true)
   }
@@ -116,6 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   @objc func displayReconfigured() {
+    self.autoBrightnessCoordinator.displayConfigurationWillChange()
     DisplayManager.shared.resetSwBrightnessForAllDisplays(noPrefSave: true)
     CGDisplayRestoreColorSyncSettings()
     self.reconfigureID += 1
@@ -145,6 +149,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       DisplayManager.shared.resetSwBrightnessForAllDisplays(prefsOnly: true)
     }
     DisplayManager.shared.setupOtherDisplays(firstrun: firstrun)
+    self.autoBrightnessCoordinator.displaysDidReconfigure()
     self.updateMenusAndKeys()
     if !firstrun || prefs.integer(forKey: PrefKey.startupAction.rawValue) == StartupAction.write.rawValue {
       if !prefs.bool(forKey: PrefKey.disableCombinedBrightness.rawValue) {
@@ -181,6 +186,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   @objc private func sleepNotification() {
     self.sleepID += 1
+    self.autoBrightnessCoordinator.setSleeping(true)
     os_log("Sleeping with sleep %{public}@", type: .info, String(self.sleepID))
     self.updateMediaKeyTap()
   }
@@ -199,6 +205,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     if self.sleepID == dispatchedSleepID {
       os_log("Sober from sleep %{public}@", type: .info, String(self.sleepID))
       self.sleepID = 0
+      self.autoBrightnessCoordinator.setSleeping(false)
       if self.reconfigureID != 0 {
         let dispatchedReconfigureID = self.reconfigureID
         os_log("Displays need reconfig after sober with reconfigureID %{public}@", type: .info, String(dispatchedReconfigureID))

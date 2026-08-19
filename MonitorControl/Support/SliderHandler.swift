@@ -330,6 +330,9 @@ class SliderHandler {
       } else if let otherDisplay = display as? OtherDisplay {
         self.valueChangedOtherDisplay(otherDisplay: otherDisplay, value: value)
       }
+      if self.command == .brightness {
+        app.autoBrightnessCoordinator.manualBrightnessChanged(display: display, value: value)
+      }
     }
     slider.setDisplayHighlightItems(false)
   }

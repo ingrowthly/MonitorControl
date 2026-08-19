@@ -71,6 +71,7 @@ class MenuHandler: NSMenu, NSMenuDelegate {
         self.addCombinedDisplayMenuBlock()
       }
     }
+    app.autoBrightnessCoordinator.addMenuItems(to: self)
     self.addDefaultMenuOptions()
   }
 

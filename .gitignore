@@ -6,3 +6,7 @@ Carthage
 
 ### Xcode ###
 xcuserdata/
+
+### Swift Package Manager ###
+AutoBrightnessCore/.build/
+AutoBrightnessCore/.swiftpm/
